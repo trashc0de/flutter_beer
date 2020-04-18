@@ -20,7 +20,22 @@ class MainScreenWidget extends StatelessWidget {
   }
 }
 
-class MainScreenBody extends StatelessWidget {
+class MainScreenBody extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MainScreenState();
+  }
+}
+
+class MainScreenState extends State<MainScreenBody> {
+
+  @override
+  void initState() {
+
+    final viewModel = Provider.of<MainViewModel>(context, listen: false);
+    viewModel.getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<MainViewModel>(context);
@@ -36,8 +51,6 @@ class MainScreenBody extends StatelessWidget {
     switch (viewState.state) {
       case ViewState.empty:
         {
-          viewModel.getData();
-
           return getEmpty();
         }
         break;

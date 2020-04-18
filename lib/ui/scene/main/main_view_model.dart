@@ -14,17 +14,16 @@ class MainViewModel extends ChangeNotifier {
     );
   }
 
-  void getData() {
+  void getData() async {
     viewState = ViewState.running;
     data = List();
 
-    notifyListeners();
 
-    Repository.getBeers().then((value) {
-      viewState = ViewState.completed;
-      this.data = value;
-      notifyListeners();
-    });
+    final beers = await Repository.getBeers();
+
+    viewState = ViewState.completed;
+    this.data = beers;
+    notifyListeners();
   }
 }
 
